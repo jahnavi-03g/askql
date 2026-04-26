@@ -1,0 +1,81 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "AskQL SQL Executor",
+    "description": "Validates and executes SQL queries against Amazon Athena",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/execute_sql": {
+      "post": {
+        "operationId": "execute_sql",
+        "summary": "Validate and execute a SQL query on Athena",
+        "description": "Takes a SQL SELECT query, validates it for safety, executes it on Amazon Athena against the user's uploaded dataset, and returns the results as columns and rows.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["sql"],
+                "properties": {
+                  "sql": {
+                    "type": "string",
+                    "description": "The SQL SELECT query to execute. Must be a valid Athena (Presto) SQL query. Only SELECT statements are permitted."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Query executed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "Whether the query executed successfully"
+                    },
+                    "sql": {
+                      "type": "string",
+                      "description": "The SQL that was executed"
+                    },
+                    "execution_id": {
+                      "type": "string",
+                      "description": "Athena query execution ID for polling"
+                    },
+                    "columns": {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "description": "Column names in the result set"
+                    },
+                    "rows": {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "description": "Result rows as arrays of string values"
+                    },
+                    "row_count": {
+                      "type": "integer",
+                      "description": "Number of rows returned"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Error message if the query failed"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

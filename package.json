@@ -1,0 +1,11 @@
+{
+  "name": "askql",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": ["frontend", "infra"],
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "deploy": "cd infra && cdk deploy --all",
+    "synth": "cd infra && cdk synth"
+  }
+}

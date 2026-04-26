@@ -1,0 +1,23 @@
+{
+  "name": "askql-infra",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "deploy": "cdk deploy --all",
+    "synth": "cdk synth",
+    "diff": "cdk diff",
+    "destroy": "cdk destroy --all"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.130.0",
+    "constructs": "^10.3.0",
+    "dotenv": "^17.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "aws-cdk": "^2.130.0",
+    "typescript": "^5.3.0"
+  }
+}
